@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    nacos:
+      # 通用配置
+      server-addr: 127.0.0.1:8000 # 1. nacos 服务地址
+      username: nacos # 2. nacos 服务用户名与密码
+      password: nacos
+
+      # 服务治理
+      discovery:
+        namespace: 0298b122-a60d-47f5-9be3-9ea149f17185 # 命名空间与 Group，用于环境隔离（namespace 默认为 public）
+        group: DEFAULT_GROUP
+        service: nacos-goods-service # 在 nacos 中的服务名，默认为 ${spring.application.name}
+        cluster-name: goods-service-cluster # 业务服务集群名称
+        weight: 1 # 负载权重值
+
+      # 服务配置
+      config:
+        # 主文件配置
+        namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
+        group: DEFAULT_GROUP
+        name: goods-service
+        file-extension: yaml
