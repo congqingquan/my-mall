@@ -2,7 +2,8 @@ spring:
   cloud:
     nacos:
       # 通用配置
-      server-addr: 127.0.0.1:8000 # 1. nacos 服务地址
+      # server-addr: 127.0.0.1:8000 # 1. nacos 集群服务地址
+      server-addr: 127.0.0.1:8100 # 1. nacos 服务地址
       username: nacos # 2. nacos 服务用户名与密码
       password: nacos
 

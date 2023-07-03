@@ -1,0 +1,47 @@
+spring:
+  cloud:
+    nacos:
+      # 通用配置
+      # server-addr: 127.0.0.1:8000 # 1. nacos 集群服务地址
+      server-addr: 127.0.0.1:8100 # 1. nacos 服务地址
+      username: nacos
+      password: nacos
+
+      # 服务治理
+      discovery:
+        namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
+        group: DEFAULT_GROUP
+        service: nacos-service
+        cluster-name: nacos-service-cluster
+        weight: 1
+
+      # 服务配置
+      config:
+        # 1. 主配置
+        namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
+        name: nacos-service # 默认为 ${spring.application.name}
+        group: DEFAULT_GROUP
+        file-extension: yaml # 不可写在 data-id 上，必须手动声明
+        refresh-enabled: true # 动态刷新配置值
+
+        # 2. 共享配置
+        shared-configs:
+          - data-id: mysql-config
+            group: DEFAULT_GROUP
+            refresh: true
+            file-extension: yaml
+          - data-id: redis-config
+            group: DEFAULT_GROUP
+            refresh: true
+            file-extension: yaml
+
+        # 3. 延展配置
+        extension-configs:
+          - data-id: extension-config-0
+            group: DEFAULT_GROUP
+            refresh: true
+            file-extension: yaml
+          - data-id: extension-config-1
+            group: DEFAULT_GROUP
+            refresh: true
+            file-extension: yaml

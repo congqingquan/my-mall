@@ -11,6 +11,7 @@
         <module>gateway-service</module>
         <module>goods-service</module>
         <module>order-service</module>
+        <module>nacos-service</module>
     </modules>
 
     <properties>
