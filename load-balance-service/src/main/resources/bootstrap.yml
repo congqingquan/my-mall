@@ -13,14 +13,14 @@ spring:
       discovery:
         namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
         group: DEFAULT_GROUP
-        service: nacos-order-service
-        cluster-name: order-service-cluster
+        service: nacos-load-balance-service
+        cluster-name: load-balance-service-cluster
         weight: 1
 
       # 服务配置
       config:
         namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
         group: DEFAULT_GROUP
-        name: order-service
+        name: load-balance-service
         file-extension: yaml
         refresh-enabled: true

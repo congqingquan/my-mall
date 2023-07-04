@@ -24,7 +24,7 @@ public class OrderServiceApplication {
 
         @GetMapping(value = "/echo/{string}")
         public String echo(@PathVariable String string) {
-            return String.format("Nacos Discovery %s %s", port, string);
+            return String.format("Order service %s %s", port, string);
         }
     }
 }

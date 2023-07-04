@@ -12,6 +12,7 @@
         <module>goods-service</module>
         <module>order-service</module>
         <module>nacos-service</module>
+        <module>load-balance-service</module>
     </modules>
 
     <properties>
