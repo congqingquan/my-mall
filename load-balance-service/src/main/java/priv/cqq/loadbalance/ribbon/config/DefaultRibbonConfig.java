@@ -1,9 +1,9 @@
 package priv.cqq.loadbalance.ribbon.config;
 
 import com.netflix.loadbalancer.IRule;
-import com.netflix.loadbalancer.RoundRobinRule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import priv.cqq.loadbalance.ribbon.rule.MyRibbonRule;
 
 /**
  * Created by QQ.Cong on 2023-07-04 / 16:31
@@ -17,6 +17,6 @@ public class DefaultRibbonConfig {
     @Bean
     public IRule iRule() {
 //        return new NacosRule();
-        return new RoundRobinRule();
+        return new MyRibbonRule(1);
     }
 }

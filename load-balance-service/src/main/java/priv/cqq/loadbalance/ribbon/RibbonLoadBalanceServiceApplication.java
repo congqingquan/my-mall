@@ -22,7 +22,7 @@ import javax.annotation.Resource;
                 @RibbonClient(name = "nacos-order-service", configuration = OrderServiceRibbonConfig.class)
         }
         // 也可以写一个通用配置使得生效与所有节点 (注意此配置会覆盖对于不同服务的配置)
-        // defaultConfiguration = DefaultRibbonConfig.class
+        // , defaultConfiguration = DefaultRibbonConfig.class
 )
 @SpringBootApplication
 public class RibbonLoadBalanceServiceApplication {
