@@ -13,7 +13,6 @@ import priv.cqq.loadbalance.ribbon.rule.MyRibbonRule;
 @Configuration
 public class DefaultRibbonConfig {
 
-    // Nacos
     @Bean
     public IRule iRule() {
 //        return new NacosRule();

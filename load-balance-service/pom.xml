@@ -27,7 +27,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
-        <!-- 用于增强 RestTemplate，使其带有负载均衡调用功能 -->
+        <!-- 官方原生的负载均衡组件 & 可以用于增强 RestTemplate，使其带有负载均衡调用功能 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
