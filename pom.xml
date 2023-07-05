@@ -13,6 +13,7 @@
         <module>order-service</module>
         <module>nacos-service</module>
         <module>load-balance-service</module>
+        <module>openfeign-service</module>
     </modules>
 
     <properties>
