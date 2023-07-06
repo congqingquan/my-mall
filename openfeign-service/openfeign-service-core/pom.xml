@@ -22,6 +22,16 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+        <!-- TODO 2. -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- TODO 3.  -->
+        <dependency>
+            <groupId>priv.cqq</groupId>
+            <artifactId>openfeign-service-client</artifactId>
+        </dependency>
 
         <!-- springboot starter -->
         <dependency>

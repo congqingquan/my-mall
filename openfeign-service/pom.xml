@@ -17,4 +17,19 @@
         <module>openfeign-service-core</module>
         <module>openfeign-service-client</module>
     </modules>
+
+    <!-- TODO 3.  -->
+    <properties>
+        <openfeign-service-client-version>0.0.1-SNAPSHOT</openfeign-service-client-version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>priv.cqq</groupId>
+                <artifactId>openfeign-service-client</artifactId>
+                <version>${openfeign-service-client-version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
