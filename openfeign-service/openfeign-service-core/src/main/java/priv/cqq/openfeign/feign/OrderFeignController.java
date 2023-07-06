@@ -10,6 +10,12 @@ public class OrderFeignController implements OrderFeignService {
 
     @Override
     public R<OrderFeignVO> selectById(Long orderId) {
+        // 超时测试
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         return R.success(new OrderFeignVO().setOrderId(orderId).setOrderCode("S" + orderId));
     }
 

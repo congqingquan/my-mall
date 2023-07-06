@@ -2,7 +2,10 @@ package priv.cqq.openfeign.feign;
 
 import feign.Contract;
 import feign.Logger;
+import feign.Request;
 import org.springframework.context.annotation.Bean;
+
+import java.util.concurrent.TimeUnit;
 
 // 订单 Feign 接口配置
 public class OrderFeignServiceConfig {
@@ -20,4 +23,14 @@ public class OrderFeignServiceConfig {
     }
 
     // 超时配置
+    @Bean
+    public Request.Options orderFeignRequestOptions() {
+        // 1. connectTimeout: 建立连接超时时长
+        // 2. readTimeout: 建立连接超时后最多等待被调用方响应时长
+        // 3. followRedirects: 若响应 3xx 是否进行重定向
+        return new Request.Options(
+                5, TimeUnit.SECONDS,
+                4, TimeUnit.SECONDS, false
+        );
+    }
 }
