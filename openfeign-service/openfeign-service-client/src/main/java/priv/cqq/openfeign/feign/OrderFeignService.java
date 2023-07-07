@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import priv.cqq.openfeign.common.R;
 import priv.cqq.openfeign.model.vo.OrderFeignVO;
 
-//@FeignClient(name = "nacos-openfeign-service")
+// @FeignClient(name = "nacos-openfeign-service")
 @FeignClient(name = "nacos-openfeign-service", configuration = OrderFeignServiceConfig.class)
 public interface OrderFeignService {
 

@@ -1,12 +1,20 @@
 package priv.cqq.openfeign.feign;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 import priv.cqq.openfeign.common.R;
 import priv.cqq.openfeign.model.vo.OrderFeignVO;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 // 模拟订单服务
+@Slf4j
 @RestController
 public class OrderFeignController implements OrderFeignService {
+
+    @Resource
+    private HttpServletRequest httpServletRequest;
 
     @Override
     public R<OrderFeignVO> selectById(Long orderId) {
@@ -16,6 +24,7 @@ public class OrderFeignController implements OrderFeignService {
 //        } catch (InterruptedException e) {
 //            throw new RuntimeException(e);
 //        }
+        log.info("Auth header {}", httpServletRequest.getHeader("Authorization"));
         return R.success(new OrderFeignVO().setOrderId(orderId).setOrderCode("S" + orderId));
     }
 

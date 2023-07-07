@@ -53,4 +53,22 @@ public class OpenfeignServiceCoreApplication {
             return orderFeignService.selectById(orderId);
         }
     }
+
+    @RestController
+    public class BaiduController {
+
+        @Resource
+        private BaiduFeignService baiduFeignService;
+
+        @GetMapping(value = "/baidu")
+        public String baidu() {
+            return baiduFeignService.get();
+        }
+    }
+
+    @FeignClient(name = "Baidu", url = "http://www.baidu.com")
+    public interface BaiduFeignService {
+        @GetMapping
+        String get();
+    }
 }

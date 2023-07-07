@@ -3,6 +3,7 @@ package priv.cqq.openfeign.feign;
 import feign.Contract;
 import feign.Logger;
 import feign.Request;
+import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
 
 import java.util.concurrent.TimeUnit;
@@ -32,5 +33,16 @@ public class OrderFeignServiceConfig {
                 5, TimeUnit.SECONDS,
                 4, TimeUnit.SECONDS, false
         );
+    }
+
+    // 拦截器配置 (执行顺序根为 Bean 的配置顺序)
+    @Bean
+    public RequestInterceptor orderFeignAuthRequestInterceptor() {
+        return new OrderFeignAuthRequestInterceptor();
+    }
+
+    @Bean
+    public RequestInterceptor orderFeignLogRequestInterceptor() {
+        return new OrderFeignLogRequestInterceptor();
     }
 }
