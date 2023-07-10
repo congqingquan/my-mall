@@ -1,14 +1,17 @@
 package priv.cqq.openfeign.config;
 
+import com.netflix.loadbalancer.IRule;
+import com.netflix.loadbalancer.RoundRobinRule;
 import feign.Contract;
 import feign.Logger;
 import feign.Request;
 import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.TimeUnit;
 
-// @Configuration // @Configuration 表示为全局 Feign 配置
+@Configuration // @Configuration 表示为全局 Feign 配置
 public class FeignConfig {
 
     // 日志配置
@@ -44,5 +47,11 @@ public class FeignConfig {
     @Bean
     public RequestInterceptor feignLogRequestInterceptor() {
         return new FeignLogRequestInterceptor();
+    }
+
+    // 负载均衡配置
+    @Bean
+    public IRule feignLoadbalancer() {
+        return new RoundRobinRule();
     }
 }

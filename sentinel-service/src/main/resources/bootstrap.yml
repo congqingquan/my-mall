@@ -1,0 +1,48 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      # 通用配置
+      # server-addr: 127.0.0.1:8000 # 1. nacos 集群服务地址
+      server-addr: 127.0.0.1:8100 # 1. nacos 服务地址
+      username: nacos
+      password: nacos
+
+      # 服务治理
+      discovery:
+        namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
+        group: DEFAULT_GROUP
+        service: nacos-sentinel-service
+        cluster-name: sentinel-service-cluster
+        weight: 1
+
+      # 服务配置
+      config:
+        namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
+        group: DEFAULT_GROUP
+        name: sentinel-service
+        file-extension: yaml
+        refresh-enabled: true
+
+    # 熔断降级
+    sentinel:
+#      transport:
+#        # 控制台的地址
+#        dashboard: localhost:8080
+#        # 与控制台通讯的端口，默认是8719，不可用会一直+1，知道找到一个可用的
+#        port: 8719
+#        # 和控制台保持心跳的ip地址
+#        client-ip: 127.0.0.1
+#        # 发送心跳的周期，默认是10s
+#        heartbeat-interval-ms: 10000
+      transport:
+        # 控制台的地址
+        dashboard: 127.0.0.1:8400
+        # 与控制台通讯的端口，默认是8719，不可用会一直+1，只至找到一个可用的
+        port: 6601
+        # 和控制台保持心跳的ip地址
+        client-ip: 127.0.0.1
+        # 发送心跳的周期，默认是10s
+        heartbeat-interval-ms: 3000
+      eager: true

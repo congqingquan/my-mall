@@ -1,5 +1,7 @@
 package priv.cqq.openfeign.feign;
 
+import com.netflix.loadbalancer.IRule;
+import com.netflix.loadbalancer.RandomRule;
 import feign.Contract;
 import feign.Logger;
 import feign.Request;
@@ -44,5 +46,11 @@ public class OrderFeignServiceConfig {
     @Bean
     public RequestInterceptor orderFeignLogRequestInterceptor() {
         return new OrderFeignLogRequestInterceptor();
+    }
+
+    // 负载均衡配置
+    @Bean
+    public IRule feignLoadbalancer() {
+        return new RandomRule();
     }
 }
