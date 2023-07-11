@@ -27,10 +27,11 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
-        </dependency>
+
+        <!-- <dependency> -->
+        <!--     <groupId>com.alibaba.csp</groupId> -->
+        <!--     <artifactId>sentinel-datasource-nacos</artifactId> -->
+        <!-- </dependency> -->
 
         <!-- sentinel (spring-cloud-starter-alibaba-sentinel 中已经包括了这些依赖) -->
         <!-- <dependency> -->

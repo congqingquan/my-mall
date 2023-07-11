@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
     public static final String RESOURCE1_NAME = "flow-control-resource1";
     public static final String RESOURCE2_NAME = "flow-control-resource2";
 
-    // 注入流控规则: 如果想要应用 sentinel-dashboard，就不能在通过原生的方法配置流控规则，会导致无法注册在 sentinel-dashboard 中
+    // 注入流控规则: 如果想要应用 sentinel-dashboard 中的配置，就不能在通过原生的方法配置流控规则，会导致无法访问注册在 sentinel-dashboard 中
 //    @PostConstruct
 //    private void init() {
 //        List<FlowRule> flowRuleList = Arrays.asList(

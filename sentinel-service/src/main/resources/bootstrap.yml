@@ -27,22 +27,12 @@ spring:
 
     # 熔断降级
     sentinel:
-#      transport:
-#        # 控制台的地址
-#        dashboard: localhost:8080
-#        # 与控制台通讯的端口，默认是8719，不可用会一直+1，知道找到一个可用的
-#        port: 8719
-#        # 和控制台保持心跳的ip地址
-#        client-ip: 127.0.0.1
-#        # 发送心跳的周期，默认是10s
-#        heartbeat-interval-ms: 10000
       transport:
-        # 控制台的地址
+        # 控制台的地址(ip:port)
         dashboard: 127.0.0.1:8400
-        # 与控制台通讯的端口，默认是8719，不可用会一直+1，只至找到一个可用的
+        # 与控制台通讯的端口，默认是8719，不可用会一直+1，用于管控台修改配置时，同步到服务节点
         port: 6601
         # 和控制台保持心跳的ip地址
         client-ip: 127.0.0.1
         # 发送心跳的周期，默认是10s
         heartbeat-interval-ms: 3000
-      eager: true
