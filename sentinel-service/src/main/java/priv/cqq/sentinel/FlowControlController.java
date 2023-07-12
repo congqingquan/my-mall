@@ -2,7 +2,6 @@ package priv.cqq.sentinel;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.SphU;
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import org.springframework.context.annotation.Bean;
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 // 流量控制：服务提供方
 @RestController
-    public class FlowControlController {
+public class FlowControlController {
 
     public static final String RESOURCE1_NAME = "flow-control-resource1";
     public static final String RESOURCE2_NAME = "flow-control-resource2";
 
-    // 注入流控规则: 如果想要应用 sentinel-dashboard 中的配置，就不能在通过原生的方法配置流控规则，会导致无法访问注册在 sentinel-dashboard 中
+    // 注入流控规则: 如果想要应用 sentinel-dashboard 中的配置，就不能在通过编码式在项目中配置规则，否则会导致资源无法展示在 sentinel-dashboard 中
 //    @PostConstruct
 //    private void init() {
 //        List<FlowRule> flowRuleList = Arrays.asList(
@@ -36,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
             entry = SphU.entry(RESOURCE1_NAME);
             return "success";
         } catch (BlockException e) {
-            return "已限流";
+            return "sentinel exception";
         } finally {
             if (entry != null) {
                 entry.exit();
@@ -53,21 +52,22 @@ import org.springframework.web.bind.annotation.RestController;
         return new SentinelResourceAspect();
     }
 
-    @SentinelResource(value = RESOURCE2_NAME,
-            blockHandler = "handleResource2SentinelBlock", blockHandlerClass = FlowControlController.class,
-            fallback = "handleResource2BusinessException", fallbackClass = FlowControlController.class
-    )
+//    @SentinelResource(value = RESOURCE2_NAME
+//            ,
+//            blockHandler = "handleSentinelException", blockHandlerClass = FlowControlBaseOriginController.class,
+//            fallback = "handleBusinessException", fallbackClass = FlowControlBaseOriginController.class
+//    )
     @GetMapping(value = "/sentinel/" + RESOURCE2_NAME + "/{string}")
     public String resource2(@PathVariable String string) {
-        int i = 1 / 0;
+//        int i = 1 / 0;
         return "success ->" + string;
     }
 
-    public static String handleResource2SentinelBlock(String string, BlockException blockException) {
-        return "blocked -> " + string;
+    public static String handleSentinelException(String string, BlockException blockException) {
+        return "sentinel exception -> " + string;
     }
 
-    public static String handleResource2BusinessException(String string, Throwable throwable) {
+    public static String handleBusinessException(String string, Throwable throwable) {
         return "business exception -> " + string;
     }
 }

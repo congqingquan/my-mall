@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 // 流量控制：服务提供方 (基于原生的 API)
-// @RestController
+//@RestController
 public class FlowControlBaseOriginController {
 
     public static final String RESOURCE1_NAME = "flow-control-resource1";
@@ -42,7 +42,7 @@ public class FlowControlBaseOriginController {
             entry = SphU.entry(RESOURCE1_NAME);
             return "success";
         } catch (BlockException e) {
-            return "已限流";
+            return "sentinel exception";
         } finally {
             if (entry != null) {
                 entry.exit();
@@ -67,8 +67,8 @@ public class FlowControlBaseOriginController {
      * 3. 二者同时存在时，优先执行处理 Blocked 异常的方法
      */
     @SentinelResource(value = RESOURCE2_NAME,
-            blockHandler = "handleResource2SentinelBlock", blockHandlerClass = FlowControlBaseOriginController.class,
-            fallback = "handleResource2BusinessException", fallbackClass = FlowControlBaseOriginController.class
+            blockHandler = "handleSentinelException", blockHandlerClass = FlowControlBaseOriginController.class,
+            fallback = "handleBusinessException", fallbackClass = FlowControlBaseOriginController.class
     )
     @GetMapping(value = "/sentinel/" + RESOURCE2_NAME + "/{string}")
     public String resource2(@PathVariable String string) {
@@ -76,11 +76,11 @@ public class FlowControlBaseOriginController {
         return "success ->" + string;
     }
 
-    public static String handleResource2SentinelBlock(String string, BlockException blockException) {
-        return "blocked -> " + string;
+    public static String handleSentinelException(String string, BlockException blockException) {
+        return "sentinel exception -> " + string;
     }
 
-    public static String handleResource2BusinessException(String string, Throwable throwable) {
+    public static String handleBusinessException(String string, Throwable throwable) {
         return "business exception -> " + string;
     }
 }
