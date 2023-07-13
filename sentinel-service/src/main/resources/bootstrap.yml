@@ -25,7 +25,7 @@ spring:
         file-extension: yaml
         refresh-enabled: true
 
-    # 熔断降级
+    # 服务监控
     sentinel:
       transport:
         # 控制台的地址(ip:port)

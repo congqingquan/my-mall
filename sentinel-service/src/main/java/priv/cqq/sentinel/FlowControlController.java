@@ -2,14 +2,17 @@ package priv.cqq.sentinel;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 // 流量控制：服务提供方
+@Slf4j
 @RestController
 public class FlowControlController {
 
@@ -52,11 +55,10 @@ public class FlowControlController {
         return new SentinelResourceAspect();
     }
 
-//    @SentinelResource(value = RESOURCE2_NAME
-//            ,
-//            blockHandler = "handleSentinelException", blockHandlerClass = FlowControlBaseOriginController.class,
-//            fallback = "handleBusinessException", fallbackClass = FlowControlBaseOriginController.class
-//    )
+    @SentinelResource(value = RESOURCE2_NAME,
+            blockHandler = "handleSentinelException", blockHandlerClass = FlowControlBaseOriginController.class,
+            fallback = "handleBusinessException", fallbackClass = FlowControlBaseOriginController.class
+    )
     @GetMapping(value = "/sentinel/" + RESOURCE2_NAME + "/{string}")
     public String resource2(@PathVariable String string) {
 //        int i = 1 / 0;
@@ -69,5 +71,12 @@ public class FlowControlController {
 
     public static String handleBusinessException(String string, Throwable throwable) {
         return "business exception -> " + string;
+    }
+
+    // ==================================== 异常全局处理 ====================================
+
+    @GetMapping(value = "/sentinel/globalHandle")
+    public String globalHandle() {
+        return "global handle";
     }
 }

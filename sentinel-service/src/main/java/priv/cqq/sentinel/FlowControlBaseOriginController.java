@@ -83,4 +83,11 @@ public class FlowControlBaseOriginController {
     public static String handleBusinessException(String string, Throwable throwable) {
         return "business exception -> " + string;
     }
+
+    // ==================================== 异常全局处理 ====================================
+
+    @GetMapping(value = "/sentinel/globalHandle")
+    public String globalHandle() {
+        return "global handle";
+    }
 }
