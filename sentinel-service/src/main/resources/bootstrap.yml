@@ -36,3 +36,4 @@ spring:
         client-ip: 127.0.0.1
         # 发送心跳的周期，默认是10s
         heartbeat-interval-ms: 3000
+      web-context-unify: true
