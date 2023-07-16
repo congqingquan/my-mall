@@ -9,7 +9,6 @@ import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.entity.ContentType;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +19,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @Description
  */
-@Component
+//@Component
 public class GlobalBlockExceptionHandler implements BlockExceptionHandler {
 
     @Override
