@@ -25,6 +25,8 @@ public class OrderFeignController implements OrderFeignService {
 //            throw new RuntimeException(e);
 //        }
         log.info("Auth header {}", httpServletRequest.getHeader("Authorization"));
+        // fallback 测试
+        int i = 1 / 0;
         return R.success(new OrderFeignVO().setOrderId(orderId).setOrderCode("S" + orderId));
     }
 

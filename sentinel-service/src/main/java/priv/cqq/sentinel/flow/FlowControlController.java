@@ -109,4 +109,9 @@ public class FlowControlController {
     }
     
     // ============================================= 流控效果：排队等待 =============================================
+
+    @GetMapping(value = "/sentinel/behavior/queue")
+    public String queue() {
+        return "queue";
+    }
 }

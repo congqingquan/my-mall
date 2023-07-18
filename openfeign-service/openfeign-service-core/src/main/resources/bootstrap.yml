@@ -24,3 +24,7 @@ spring:
         name: openfeign-service
         file-extension: yaml
         refresh-enabled: true
+
+feign:
+  hystrix:
+    enabled: true
