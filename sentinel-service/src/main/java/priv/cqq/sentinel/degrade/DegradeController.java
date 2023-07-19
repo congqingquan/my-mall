@@ -1,4 +1,4 @@
-package priv.cqq.sentinel.flow;
+package priv.cqq.sentinel.degrade;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

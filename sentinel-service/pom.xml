@@ -23,11 +23,15 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+        <!-- <dependency> -->
+        <!--     <groupId>com.alibaba.csp</groupId> -->
+        <!--     <artifactId>sentinel-transport-simple-http</artifactId> -->
+        <!--     <version>1.8.6</version> -->
+        <!-- </dependency> -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
-
         <!-- <dependency> -->
         <!--     <groupId>com.alibaba.csp</groupId> -->
         <!--     <artifactId>sentinel-datasource-nacos</artifactId> -->
@@ -44,11 +48,11 @@
         <!--     <artifactId>sentinel-annotation-aspectj</artifactId> -->
         <!--     <version>1.8.6</version> -->
         <!-- </dependency> -->
-        <!-- <dependency> -->
-        <!--     <groupId>com.alibaba.csp</groupId> -->
-        <!--     <artifactId>sentinel-transport-simple-http</artifactId> -->
-        <!--     <version>1.8.6</version> -->
-        <!-- </dependency> -->
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
 
         <!-- springboot starter -->
         <dependency>
@@ -69,6 +73,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

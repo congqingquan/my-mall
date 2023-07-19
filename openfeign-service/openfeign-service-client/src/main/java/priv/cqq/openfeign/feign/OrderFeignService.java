@@ -45,7 +45,7 @@ public interface OrderFeignService {
     class FallbackHandlerFactory implements FallbackFactory<OrderFeignService> {
 
         @Autowired
-        @Qualifier("fallbackHandler")
+        @Qualifier("orderFeignService.FallbackHandler")
         private FallbackHandler fallbackHandler;
 
         @Override

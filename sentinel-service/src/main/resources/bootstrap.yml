@@ -38,3 +38,8 @@ spring:
         heartbeat-interval-ms: 3000
       # 禁止收敛URL的入口 context
       web-context-unify: false
+
+# openfeign 整合 sentinel
+feign:
+  sentinel:
+    enabled: true

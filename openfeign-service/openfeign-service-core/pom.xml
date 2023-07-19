@@ -31,9 +31,6 @@
             <artifactId>openfeign-service-client</artifactId>
         </dependency>
 
-        <!-- 整合 sentinel -->
-
-
         <!-- springboot starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
