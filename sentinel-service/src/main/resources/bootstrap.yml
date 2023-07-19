@@ -39,7 +39,7 @@ spring:
       # 禁止收敛URL的入口 context
       web-context-unify: false
 
-# openfeign 整合 sentinel
+# sentinel 整合 openfeign
 feign:
   sentinel:
     enabled: true
