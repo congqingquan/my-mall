@@ -23,14 +23,13 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-        <!-- <dependency> -->
-        <!--     <groupId>com.alibaba.csp</groupId> -->
-        <!--     <artifactId>sentinel-transport-simple-http</artifactId> -->
-        <!--     <version>1.8.6</version> -->
-        <!-- </dependency> -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-cluster-client-default</artifactId>
         </dependency>
         <!-- <dependency> -->
         <!--     <groupId>com.alibaba.csp</groupId> -->

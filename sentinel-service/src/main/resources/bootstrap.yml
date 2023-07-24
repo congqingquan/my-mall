@@ -30,7 +30,8 @@ spring:
       transport:
         # 控制台的地址(ip:port)
         dashboard: 127.0.0.1:8400
-        # 与控制台通讯的端口，默认是8719，不可用会一直+1，用于管控台修改配置时，同步到服务节点
+        # 与控制台通讯的端口，默认是8719，不可用会一直+1
+        # 用于客户端暴露 sentinel 原生 api 的访问端口，用于管控台获取客户端簇点链路、监控数据、更新规则等
         port: 6601
         # 和控制台保持心跳的ip地址
         client-ip: 127.0.0.1
@@ -38,6 +39,9 @@ spring:
         heartbeat-interval-ms: 3000
       # 禁止收敛URL的入口 context
       web-context-unify: false
+      # 饿加载
+      eager: true
+
 
 # sentinel 整合 openfeign
 feign:
