@@ -9,6 +9,12 @@ import org.springframework.validation.annotation.Validated;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Created by Kim QQ.Cong on 2023/7/31 / 23:01
+ *
+ * @author: CongQingquan
+ * @Description: 局部拦截器
+ */
 
 // 1. 必须是一个 Spring Bean
 // 2. 继承 AbstractGatewayFilterFactory
