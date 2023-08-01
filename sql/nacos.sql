@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : local
+ Source Server         : local_mysql
  Source Server Type    : MySQL
- Source Server Version : 50738
+ Source Server Version : 50721
  Source Host           : localhost:3306
  Source Schema         : nacos
 
  Target Server Type    : MySQL
- Target Server Version : 50738
+ Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 10/07/2023 17:30:47
+ Date: 02/08/2023 00:36:18
 */
 
 SET NAMES utf8mb4;
@@ -21,31 +21,32 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for config_info
 -- ----------------------------
 DROP TABLE IF EXISTS `config_info`;
-CREATE TABLE `config_info`  (
+CREATE TABLE `config_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
-  `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `content` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'content',
-  `md5` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'md5',
-  `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
-  `src_user` text CHARACTER SET utf8 COLLATE utf8_bin NULL COMMENT 'source user',
-  `src_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'source ip',
-  `app_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '租户字段',
-  `c_desc` varchar(256) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `c_use` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `effect` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `type` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `c_schema` text CHARACTER SET utf8 COLLATE utf8_bin NULL,
-  `encrypted_data_key` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '秘钥',
+  `data_id` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'data_id',
+  `group_id` varchar(128) COLLATE utf8_bin DEFAULT NULL,
+  `content` longtext COLLATE utf8_bin NOT NULL COMMENT 'content',
+  `md5` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT 'md5',
+  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+  `src_user` text COLLATE utf8_bin COMMENT 'source user',
+  `src_ip` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT 'source ip',
+  `app_name` varchar(128) COLLATE utf8_bin DEFAULT NULL,
+  `tenant_id` varchar(128) COLLATE utf8_bin DEFAULT '' COMMENT '租户字段',
+  `c_desc` varchar(256) COLLATE utf8_bin DEFAULT NULL,
+  `c_use` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `effect` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `type` varchar(64) COLLATE utf8_bin DEFAULT NULL,
+  `c_schema` text COLLATE utf8_bin,
+  `encrypted_data_key` text COLLATE utf8_bin NOT NULL COMMENT '秘钥',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_configinfo_datagrouptenant`(`data_id`, `group_id`, `tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info' ROW_FORMAT = Dynamic;
+  UNIQUE KEY `uk_configinfo_datagrouptenant` (`data_id`,`group_id`,`tenant_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='config_info';
 
 -- ----------------------------
 -- Records of config_info
 -- ----------------------------
+BEGIN;
 INSERT INTO `config_info` VALUES (1, 'order-service', 'DEFAULT_GROUP', 'server:\n  port: 6200\n\nlogging:\n  level:\n    root: info\n\nspring:\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: order-service', '7307c765b64ca32c9ee59348ef8c2d52', '2023-06-30 07:58:19', '2023-07-04 08:35:59', 'nacos', '0:0:0:0:0:0:0:1', '', '0298b122-a60d-47f5-9be3-9ea149f17185', NULL, NULL, NULL, 'text', NULL, '');
 INSERT INTO `config_info` VALUES (2, 'goods-service', 'DEFAULT_GROUP', 'server:\n  port: 6100\n\nlogging:\n  level:\n    root: info\n\nspring:\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: goods-service', '925d96de09932fb30832547f5f645e5a', '2023-06-30 07:59:09', '2023-07-04 08:36:09', 'nacos', '0:0:0:0:0:0:0:1', '', '0298b122-a60d-47f5-9be3-9ea149f17185', NULL, NULL, NULL, 'text', NULL, '');
 INSERT INTO `config_info` VALUES (3, 'nacos-service', 'DEFAULT_GROUP', 'server:\n  port: 6300\n\nlogging:\n  level:\n    root: info\n\nspring:\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: nacos-service\n\ntest-key: nacos-service-test-key', 'cb9ed0dde0069a40a666a75cd47cb9d1', '2023-07-03 01:53:46', '2023-07-04 08:36:21', 'nacos', '0:0:0:0:0:0:0:1', '', '0298b122-a60d-47f5-9be3-9ea149f17185', NULL, NULL, NULL, 'text', NULL, '');
@@ -56,151 +57,134 @@ INSERT INTO `config_info` VALUES (10, 'extension-config-0', 'DEFAULT_GROUP', 'te
 INSERT INTO `config_info` VALUES (11, 'extension-config-1', 'DEFAULT_GROUP', 'test-key: extendsion1', '9903b3f8eeda52bb84fd11e1dba16433', '2023-06-30 08:30:02', '2023-07-03 03:57:30', 'nacos', '0:0:0:0:0:0:0:1', '', '0298b122-a60d-47f5-9be3-9ea149f17185', '', '', '', 'yaml', '', '');
 INSERT INTO `config_info` VALUES (23, 'mysql-config', 'DEFAULT_GROUP', 'test-key: mysql', '84f28d4460bc32f901e57556356ec60c', '2023-07-03 03:07:31', '2023-07-03 03:49:53', 'nacos', '0:0:0:0:0:0:0:1', '', '0298b122-a60d-47f5-9be3-9ea149f17185', '', '', '', 'yaml', '', '');
 INSERT INTO `config_info` VALUES (24, 'redis-config', 'DEFAULT_GROUP', 'test-key: redis', 'c73e18dba860501d7e42008453711c06', '2023-07-03 03:07:40', '2023-07-03 03:57:16', 'nacos', '0:0:0:0:0:0:0:1', '', '0298b122-a60d-47f5-9be3-9ea149f17185', '', '', '', 'yaml', '', '');
+INSERT INTO `config_info` VALUES (30, 'gateway-service', 'DEFAULT_GROUP', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          # uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          uri: http://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            # - AddRequestHeader=my-header,mh\n            - MyFilter=my-header,mh\n      globalcors:           # 全局的跨域处理\n        add-to-simple-url-handler-mapping: true # 解决 options 请求被拦截问题\n        corsConfigurations:\n          \'[/**]\':\n            allowedOrigins: # 允许哪些网站的可以跨域请求, \'*\' 表示所有 \n              - \"https://localhost:8001\"\n              - \"https://localhost:8002\"\n              - \"https://localhost:8003\"\n            allowedMethods: # 允许的跨域的请求方式, \'*\' 表示所有\n              - \"GET\"\n              - \"POST\"\n              - \"DELETE\"\n              - \"PUT\"\n              - \"OPTIONS\"\n            allowedHeaders: \"*\"    # 允许在请求中携带的请求头, \'*\' 表示所有\n            allowCredentials: true # 是否允许携带 cookie\n            maxAge: 360000         # 跨域检测的有效期', '75d81bcf9c04e5f3f2051aed6efa7106', '2023-07-25 01:04:54', '2023-08-01 15:35:51', 'nacos', '0:0:0:0:0:0:0:1', '', '0298b122-a60d-47f5-9be3-9ea149f17185', '', '', '', 'yaml', '', '');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for config_info_aggr
 -- ----------------------------
 DROP TABLE IF EXISTS `config_info_aggr`;
-CREATE TABLE `config_info_aggr`  (
+CREATE TABLE `config_info_aggr` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
-  `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'group_id',
-  `datum_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'datum_id',
-  `content` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '内容',
-  `gmt_modified` datetime(0) NOT NULL COMMENT '修改时间',
-  `app_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '租户字段',
+  `data_id` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'data_id',
+  `group_id` varchar(128) COLLATE utf8_bin NOT NULL COMMENT 'group_id',
+  `datum_id` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'datum_id',
+  `content` longtext COLLATE utf8_bin NOT NULL COMMENT '内容',
+  `gmt_modified` datetime NOT NULL COMMENT '修改时间',
+  `app_name` varchar(128) COLLATE utf8_bin DEFAULT NULL,
+  `tenant_id` varchar(128) COLLATE utf8_bin DEFAULT '' COMMENT '租户字段',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_configinfoaggr_datagrouptenantdatum`(`data_id`, `group_id`, `tenant_id`, `datum_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '增加租户字段' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of config_info_aggr
--- ----------------------------
+  UNIQUE KEY `uk_configinfoaggr_datagrouptenantdatum` (`data_id`,`group_id`,`tenant_id`,`datum_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='增加租户字段';
 
 -- ----------------------------
 -- Table structure for config_info_beta
 -- ----------------------------
 DROP TABLE IF EXISTS `config_info_beta`;
-CREATE TABLE `config_info_beta`  (
+CREATE TABLE `config_info_beta` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
-  `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'group_id',
-  `app_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'app_name',
-  `content` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'content',
-  `beta_ips` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'betaIps',
-  `md5` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'md5',
-  `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
-  `src_user` text CHARACTER SET utf8 COLLATE utf8_bin NULL COMMENT 'source user',
-  `src_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'source ip',
-  `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '租户字段',
-  `encrypted_data_key` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '秘钥',
+  `data_id` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'data_id',
+  `group_id` varchar(128) COLLATE utf8_bin NOT NULL COMMENT 'group_id',
+  `app_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT 'app_name',
+  `content` longtext COLLATE utf8_bin NOT NULL COMMENT 'content',
+  `beta_ips` varchar(1024) COLLATE utf8_bin DEFAULT NULL COMMENT 'betaIps',
+  `md5` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT 'md5',
+  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+  `src_user` text COLLATE utf8_bin COMMENT 'source user',
+  `src_ip` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT 'source ip',
+  `tenant_id` varchar(128) COLLATE utf8_bin DEFAULT '' COMMENT '租户字段',
+  `encrypted_data_key` text COLLATE utf8_bin NOT NULL COMMENT '秘钥',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_configinfobeta_datagrouptenant`(`data_id`, `group_id`, `tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_beta' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of config_info_beta
--- ----------------------------
+  UNIQUE KEY `uk_configinfobeta_datagrouptenant` (`data_id`,`group_id`,`tenant_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='config_info_beta';
 
 -- ----------------------------
 -- Table structure for config_info_tag
 -- ----------------------------
 DROP TABLE IF EXISTS `config_info_tag`;
-CREATE TABLE `config_info_tag`  (
+CREATE TABLE `config_info_tag` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
-  `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'group_id',
-  `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT 'tenant_id',
-  `tag_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'tag_id',
-  `app_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'app_name',
-  `content` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'content',
-  `md5` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'md5',
-  `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
-  `src_user` text CHARACTER SET utf8 COLLATE utf8_bin NULL COMMENT 'source user',
-  `src_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'source ip',
+  `data_id` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'data_id',
+  `group_id` varchar(128) COLLATE utf8_bin NOT NULL COMMENT 'group_id',
+  `tenant_id` varchar(128) COLLATE utf8_bin DEFAULT '' COMMENT 'tenant_id',
+  `tag_id` varchar(128) COLLATE utf8_bin NOT NULL COMMENT 'tag_id',
+  `app_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT 'app_name',
+  `content` longtext COLLATE utf8_bin NOT NULL COMMENT 'content',
+  `md5` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT 'md5',
+  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+  `src_user` text COLLATE utf8_bin COMMENT 'source user',
+  `src_ip` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT 'source ip',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_configinfotag_datagrouptenanttag`(`data_id`, `group_id`, `tenant_id`, `tag_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_info_tag' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of config_info_tag
--- ----------------------------
+  UNIQUE KEY `uk_configinfotag_datagrouptenanttag` (`data_id`,`group_id`,`tenant_id`,`tag_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='config_info_tag';
 
 -- ----------------------------
 -- Table structure for config_tags_relation
 -- ----------------------------
 DROP TABLE IF EXISTS `config_tags_relation`;
-CREATE TABLE `config_tags_relation`  (
+CREATE TABLE `config_tags_relation` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `tag_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'tag_name',
-  `tag_type` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'tag_type',
-  `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'data_id',
-  `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'group_id',
-  `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT 'tenant_id',
+  `tag_name` varchar(128) COLLATE utf8_bin NOT NULL COMMENT 'tag_name',
+  `tag_type` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT 'tag_type',
+  `data_id` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'data_id',
+  `group_id` varchar(128) COLLATE utf8_bin NOT NULL COMMENT 'group_id',
+  `tenant_id` varchar(128) COLLATE utf8_bin DEFAULT '' COMMENT 'tenant_id',
   `nid` bigint(20) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`nid`) USING BTREE,
-  UNIQUE INDEX `uk_configtagrelation_configidtag`(`id`, `tag_name`, `tag_type`) USING BTREE,
-  INDEX `idx_tenant_id`(`tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'config_tag_relation' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of config_tags_relation
--- ----------------------------
+  UNIQUE KEY `uk_configtagrelation_configidtag` (`id`,`tag_name`,`tag_type`) USING BTREE,
+  KEY `idx_tenant_id` (`tenant_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='config_tag_relation';
 
 -- ----------------------------
 -- Table structure for group_capacity
 -- ----------------------------
 DROP TABLE IF EXISTS `group_capacity`;
-CREATE TABLE `group_capacity`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Group ID，空字符表示整个集群',
-  `quota` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '配额，0表示使用默认值',
-  `usage` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '使用量',
-  `max_size` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
-  `max_aggr_count` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '聚合子配置最大个数，，0表示使用默认值',
-  `max_aggr_size` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
-  `max_history_count` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '最大变更历史数量',
-  `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
+CREATE TABLE `group_capacity` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `group_id` varchar(128) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Group ID，空字符表示整个集群',
+  `quota` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '配额，0表示使用默认值',
+  `usage` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '使用量',
+  `max_size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
+  `max_aggr_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '聚合子配置最大个数，，0表示使用默认值',
+  `max_aggr_size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
+  `max_history_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最大变更历史数量',
+  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_group_id`(`group_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '集群、各Group容量信息表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of group_capacity
--- ----------------------------
+  UNIQUE KEY `uk_group_id` (`group_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='集群、各Group容量信息表';
 
 -- ----------------------------
 -- Table structure for his_config_info
 -- ----------------------------
 DROP TABLE IF EXISTS `his_config_info`;
-CREATE TABLE `his_config_info`  (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nid` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `group_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `app_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'app_name',
-  `content` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `md5` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-  `src_user` text CHARACTER SET utf8 COLLATE utf8_bin NULL,
-  `src_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `op_type` char(10) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-  `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT '租户字段',
-  `encrypted_data_key` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '秘钥',
+CREATE TABLE `his_config_info` (
+  `id` bigint(20) unsigned NOT NULL,
+  `nid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `data_id` varchar(255) COLLATE utf8_bin NOT NULL,
+  `group_id` varchar(128) COLLATE utf8_bin NOT NULL,
+  `app_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT 'app_name',
+  `content` longtext COLLATE utf8_bin NOT NULL,
+  `md5` varchar(32) COLLATE utf8_bin DEFAULT NULL,
+  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `src_user` text COLLATE utf8_bin,
+  `src_ip` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `op_type` char(10) COLLATE utf8_bin DEFAULT NULL,
+  `tenant_id` varchar(128) COLLATE utf8_bin DEFAULT '' COMMENT '租户字段',
+  `encrypted_data_key` text COLLATE utf8_bin NOT NULL COMMENT '秘钥',
   PRIMARY KEY (`nid`) USING BTREE,
-  INDEX `idx_gmt_create`(`gmt_create`) USING BTREE,
-  INDEX `idx_gmt_modified`(`gmt_modified`) USING BTREE,
-  INDEX `idx_did`(`data_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 142 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '多租户改造' ROW_FORMAT = Dynamic;
+  KEY `idx_gmt_create` (`gmt_create`) USING BTREE,
+  KEY `idx_gmt_modified` (`gmt_modified`) USING BTREE,
+  KEY `idx_did` (`data_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='多租户改造';
 
 -- ----------------------------
 -- Records of his_config_info
 -- ----------------------------
+BEGIN;
 INSERT INTO `his_config_info` VALUES (4, 99, 'extension-config-0', 'DEFAULT_GROUP', '', 'test-key: extendsion0', '9d2ad2c4ec812cfe597bc04463c84b2c', '2023-07-03 16:12:25', '2023-07-03 08:12:26', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
 INSERT INTO `his_config_info` VALUES (4, 100, 'extension-config-0', 'DEFAULT_GROUP', '', 'test-key: extendsion0', '9d2ad2c4ec812cfe597bc04463c84b2c', '2023-07-03 16:13:04', '2023-07-03 08:13:05', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
 INSERT INTO `his_config_info` VALUES (4, 101, 'extension-config-0', 'DEFAULT_GROUP', '', 'test-key: extendsion0', '9d2ad2c4ec812cfe597bc04463c84b2c', '2023-07-03 16:13:06', '2023-07-03 08:13:07', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
@@ -244,104 +228,138 @@ INSERT INTO `his_config_info` VALUES (6, 138, 'sentinel-service', 'DEFAULT_GROUP
 INSERT INTO `his_config_info` VALUES (6, 139, 'sentinel-service', 'DEFAULT_GROUP', '', 'server:\n  port: 6600\n\nlogging:\n  level:\n    root: info\n\nspring:\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: sentinel-service', '84fa1142ec808271e680fbac21605406', '2023-07-10 16:33:39', '2023-07-10 08:33:40', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
 INSERT INTO `his_config_info` VALUES (6, 140, 'sentinel-service', 'DEFAULT_GROUP', '', 'server:\n  port: 6600\n\nlogging:\n  level:\n    root: info\n\nspring:\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    transport:\n      # 控制台的地址\n      dashboard: 127.0.0.1:8400\n      # 与控制台通讯的端口，默认是8719，不可用会一直+1，只至找到一个可用的\n      port: 6601\n      # 和控制台保持心跳的ip地址\n      client-ip: 127.0.0.1\n      # 发送心跳的周期，默认是10s\n      heartbeat-interval-ms: 3000\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: sentinel-service', '05f60ca2c2631d29b52ac7ecc539b67d', '2023-07-10 16:34:46', '2023-07-10 08:34:46', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
 INSERT INTO `his_config_info` VALUES (6, 141, 'sentinel-service', 'DEFAULT_GROUP', '', 'server:\n  port: 6600\n\nlogging:\n  level:\n    root: info\n\nspring:\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    sentinel:\n      transport:\n        # 控制台的地址\n        dashboard: 127.0.0.1:8400\n        # 与控制台通讯的端口，默认是8719，不可用会一直+1，只至找到一个可用的\n        port: 6601\n        # 和控制台保持心跳的ip地址\n        client-ip: 127.0.0.1\n        # 发送心跳的周期，默认是10s\n        heartbeat-interval-ms: 3000\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: sentinel-service', '14183b16812000bafb513cddf099582b', '2023-07-10 16:36:07', '2023-07-10 08:36:08', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (0, 142, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 6200\n\nlogging:\n  level:\n    root: info\n\nspring:\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: order-service', '7307c765b64ca32c9ee59348ef8c2d52', '2023-07-25 09:04:53', '2023-07-25 01:04:54', NULL, '0:0:0:0:0:0:0:1', 'I', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (25, 143, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 6200\n\nlogging:\n  level:\n    root: info\n\nspring:\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: order-service', '7307c765b64ca32c9ee59348ef8c2d52', '2023-07-25 09:05:38', '2023-07-25 01:05:38', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (0, 144, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 6000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service', 'a09dc70ee539e9de4e5363b1adf75954', '2023-07-28 14:04:32', '2023-07-28 06:04:33', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (0, 145, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 6000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/order-service/**\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', '6c2dd65ff152d86fbd2de9facb25767d', '2023-07-28 14:06:38', '2023-07-28 06:06:38', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (0, 146, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/order-service/**\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', 'f693fef8fb3dafb8847521e357b9504e', '2023-07-28 14:14:01', '2023-07-28 06:14:02', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (0, 147, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      # routes:\n      #   - id: order_route                    # 路由的唯一标识\n      #     uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n      #     predicates:                        # 断言规则，用于路由匹配\n      #       - Path=/order-service/**\n      #     filters:\n      #       - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', 'ddc7d5ab136bc63ead20e57ed98f06da', '2023-07-28 14:18:55', '2023-07-28 06:18:56', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (0, 148, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/order-service-route/**\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', 'ee5ee6828796bdaf0ffec9689fb0c18d', '2023-07-28 14:19:20', '2023-07-28 06:19:21', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 149, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', '63267741dd15574940c8bd00c3a19866', '2023-07-30 19:00:18', '2023-07-30 11:00:18', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 150, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=cqq\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', 'aed922af329a318e250e4a6334d6675d', '2023-07-30 20:35:20', '2023-07-30 12:35:20', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 151, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=cqq,123\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', '46ffedfe95366ce98e403b0e87704a46', '2023-07-30 20:37:18', '2023-07-30 12:37:19', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 152, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate2=cqq,123\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', '8f6e1267b27bd1226535a253e5eb5cb4', '2023-07-30 20:39:04', '2023-07-30 12:39:04', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 153, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=cqq,123\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', '46ffedfe95366ce98e403b0e87704a46', '2023-07-30 20:40:29', '2023-07-30 12:40:30', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 154, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/', 'a15cbf6e717268df41a5477a1a0b6826', '2023-07-30 22:32:29', '2023-07-30 14:32:29', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 155, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            - AddRequestHeader=my-header,mh', '753166b23af5ece7d62efb56ffef689a', '2023-07-30 22:49:29', '2023-07-30 14:49:29', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 156, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            - AddRequestHeader=my-header,mh, my-header2,mh2', 'a7f76f314d03a1135123a407e1599e37', '2023-07-30 22:50:22', '2023-07-30 14:50:23', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 157, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            - AddRequestHeader=my-header,mh,my-header2,mh2', 'e057c0e82ea8516b8b3b8464e773782e', '2023-07-30 22:52:06', '2023-07-30 14:52:06', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 158, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            - AddRequestHeader=my-header:mh,my-header2:mh2', '2312e07f51f6cebc47d0344a6e495231', '2023-07-30 22:53:17', '2023-07-30 14:53:17', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 159, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            - AddRequestHeader=my-header:mh, my-header2:mh2', '09992ad6aacc2aa692a8afeec2f4b1d2', '2023-07-30 22:54:20', '2023-07-30 14:54:21', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 160, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            - AddRequestHeadersIfNotPresent=my-header:mh,my-header2:mh2', '30f849e7c47b995ec8e96626b2d7a30b', '2023-07-30 22:58:45', '2023-07-30 14:58:46', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 161, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            - AddRequestHeader=my-header:mh', '0225ff9bef8d6904ca5a138756b62c0b', '2023-07-30 22:58:56', '2023-07-30 14:58:56', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 162, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            - AddRequestHeader=my-header,mh', '753166b23af5ece7d62efb56ffef689a', '2023-07-30 23:19:40', '2023-07-30 15:19:41', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 163, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            # - AddRequestHeader=my-header,mh\n            - MyFilter=my-header,mh', 'e9bba41fd247e66a0dab473af282eae4', '2023-07-31 00:27:30', '2023-07-30 16:27:30', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 164, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            # - AddRequestHeader=my-header,mh\n            - MyFilter=my-header,mh\n        globalcors:           # 全局的跨域处理\n          add-to-simple-url-handler-mapping: true # 解决 options 请求被拦截问题\n          corsConfigurations:\n            \'[/**]\':\n              allowedOrigins: # 允许哪些网站的可以跨域请求, \'*\' 表示所有 \n                - \"https://localhost:8001\"\n                - \"https://localhost:8002\"\n                - \"https://localhost:8003\"\n              allowedMethods: # 允许的跨域的请求方式, \'*\' 表示所有\n                - \"GET\"\n                - \"POST\"\n                - \"DELETE\"\n                - \"PUT\"\n                - \"OPTIONS\"\n              allowedHeaders: \"*\"    # 允许在请求中携带的请求头, \'*\' 表示所有\n              allowCredentials: true # 是否允许携带 cookie\n              maxAge: 360000         # 跨域检测的有效期', 'fd2cca4eea34bf978a187cc1cffed46f', '2023-07-31 23:08:36', '2023-07-31 15:08:36', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 165, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            # - AddRequestHeader=my-header,mh\n            - MyFilter=my-header,mh\n      globalcors:           # 全局的跨域处理\n        add-to-simple-url-handler-mapping: true # 解决 options 请求被拦截问题\n        corsConfigurations:\n          \'[/**]\':\n            allowedOrigins: # 允许哪些网站的可以跨域请求, \'*\' 表示所有 \n              - \"https://localhost:8001\"\n              - \"https://localhost:8002\"\n              - \"https://localhost:8003\"\n            allowedMethods: # 允许的跨域的请求方式, \'*\' 表示所有\n              - \"GET\"\n              - \"POST\"\n              - \"DELETE\"\n              - \"PUT\"\n              - \"OPTIONS\"\n            allowedHeaders: \"*\"    # 允许在请求中携带的请求头, \'*\' 表示所有\n            allowCredentials: true # 是否允许携带 cookie\n            maxAge: 360000         # 跨域检测的有效期', 'c9e248cfe01f3fe1603232c056933889', '2023-08-01 23:25:59', '2023-08-01 15:25:59', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 166, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          # uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          uri: http://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            # - AddRequestHeader=my-header,mh\n            - MyFilter=my-header,mh\n      globalcors:           # 全局的跨域处理\n        add-to-simple-url-handler-mapping: true # 解决 options 请求被拦截问题\n        corsConfigurations:\n          \'[/**]\':\n            allowedOrigins: # 允许哪些网站的可以跨域请求, \'*\' 表示所有 \n              - \"https://localhost:8001\"\n              - \"https://localhost:8002\"\n              - \"https://localhost:8003\"\n            allowedMethods: # 允许的跨域的请求方式, \'*\' 表示所有\n              - \"GET\"\n              - \"POST\"\n              - \"DELETE\"\n              - \"PUT\"\n              - \"OPTIONS\"\n            allowedHeaders: \"*\"    # 允许在请求中携带的请求头, \'*\' 表示所有\n            allowCredentials: true # 是否允许携带 cookie\n            maxAge: 360000         # 跨域检测的有效期', '75d81bcf9c04e5f3f2051aed6efa7106', '2023-08-01 23:27:27', '2023-08-01 15:27:27', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 167, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          # uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          uri: nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            # - AddRequestHeader=my-header,mh\n            - MyFilter=my-header,mh\n      globalcors:           # 全局的跨域处理\n        add-to-simple-url-handler-mapping: true # 解决 options 请求被拦截问题\n        corsConfigurations:\n          \'[/**]\':\n            allowedOrigins: # 允许哪些网站的可以跨域请求, \'*\' 表示所有 \n              - \"https://localhost:8001\"\n              - \"https://localhost:8002\"\n              - \"https://localhost:8003\"\n            allowedMethods: # 允许的跨域的请求方式, \'*\' 表示所有\n              - \"GET\"\n              - \"POST\"\n              - \"DELETE\"\n              - \"PUT\"\n              - \"OPTIONS\"\n            allowedHeaders: \"*\"    # 允许在请求中携带的请求头, \'*\' 表示所有\n            allowCredentials: true # 是否允许携带 cookie\n            maxAge: 360000         # 跨域检测的有效期', 'ef8aa969f8d3ae31ae19516e21e7a02d', '2023-08-01 23:28:05', '2023-08-01 15:28:05', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 168, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          # uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          uri: http://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/route-order-service/**\n            - MyPredicate=key1,key2\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n            # - AddRequestHeader=my-header,mh\n            - MyFilter=my-header,mh\n      globalcors:           # 全局的跨域处理\n        add-to-simple-url-handler-mapping: true # 解决 options 请求被拦截问题\n        corsConfigurations:\n          \'[/**]\':\n            allowedOrigins: # 允许哪些网站的可以跨域请求, \'*\' 表示所有 \n              - \"https://localhost:8001\"\n              - \"https://localhost:8002\"\n              - \"https://localhost:8003\"\n            allowedMethods: # 允许的跨域的请求方式, \'*\' 表示所有\n              - \"GET\"\n              - \"POST\"\n              - \"DELETE\"\n              - \"PUT\"\n              - \"OPTIONS\"\n            allowedHeaders: \"*\"    # 允许在请求中携带的请求头, \'*\' 表示所有\n            allowCredentials: true # 是否允许携带 cookie\n            maxAge: 360000         # 跨域检测的有效期', '75d81bcf9c04e5f3f2051aed6efa7106', '2023-08-01 23:32:43', '2023-08-01 15:32:44', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 169, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      discovery:\n        locator:\n          enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/order-service/**\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n\n        # - id: order_route                    # 路由的唯一标识\n        #   # uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n        #   uri: http://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n        #   predicates:                        # 断言规则，用于路由匹配\n        #     - Path=/route-order-service/**\n        #     - MyPredicate=key1,key2\n        #   filters:\n        #     - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n        #     # - AddRequestHeader=my-header,mh\n        #     - MyFilter=my-header,mh\n      globalcors:           # 全局的跨域处理\n        add-to-simple-url-handler-mapping: true # 解决 options 请求被拦截问题\n        corsConfigurations:\n          \'[/**]\':\n            allowedOrigins: # 允许哪些网站的可以跨域请求, \'*\' 表示所有 \n              - \"https://localhost:8001\"\n              - \"https://localhost:8002\"\n              - \"https://localhost:8003\"\n            allowedMethods: # 允许的跨域的请求方式, \'*\' 表示所有\n              - \"GET\"\n              - \"POST\"\n              - \"DELETE\"\n              - \"PUT\"\n              - \"OPTIONS\"\n            allowedHeaders: \"*\"    # 允许在请求中携带的请求头, \'*\' 表示所有\n            allowCredentials: true # 是否允许携带 cookie\n            maxAge: 360000         # 跨域检测的有效期', '822c09f77bb292dbed2750287607cc32', '2023-08-01 23:34:47', '2023-08-01 15:34:47', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+INSERT INTO `his_config_info` VALUES (30, 170, 'gateway-service', 'DEFAULT_GROUP', '', 'server:\n  port: 5000\n\nlogging:\n  level:\n    root: info\n\nspring:\n  mvc:\n    path-match:\n      matching-strategy: ANT_PATH_MATCHER\n  application:\n    name: gateway-service\n  cloud:\n    config:\n      override-none: true\n      allow-override: true\n      override-system-properties: false\n    \n    # 网关配置\n    gateway:\n      # discovery:\n      #   locator:\n      #     enabled: true\n      routes:\n        - id: order_route                    # 路由的唯一标识\n          uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n          predicates:                        # 断言规则，用于路由匹配\n            - Path=/order-service/**\n          filters:\n            - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n\n        # - id: order_route                    # 路由的唯一标识\n        #   # uri: lb://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n        #   uri: http://nacos-order-service      # lb: load-balance 启用负载均衡，并根据服务名称自动转发\n        #   predicates:                        # 断言规则，用于路由匹配\n        #     - Path=/route-order-service/**\n        #     - MyPredicate=key1,key2\n        #   filters:\n        #     - StripPrefix=1                  # 剔除 url 中的第一层路径: /order-service/\n        #     # - AddRequestHeader=my-header,mh\n        #     - MyFilter=my-header,mh\n      globalcors:           # 全局的跨域处理\n        add-to-simple-url-handler-mapping: true # 解决 options 请求被拦截问题\n        corsConfigurations:\n          \'[/**]\':\n            allowedOrigins: # 允许哪些网站的可以跨域请求, \'*\' 表示所有 \n              - \"https://localhost:8001\"\n              - \"https://localhost:8002\"\n              - \"https://localhost:8003\"\n            allowedMethods: # 允许的跨域的请求方式, \'*\' 表示所有\n              - \"GET\"\n              - \"POST\"\n              - \"DELETE\"\n              - \"PUT\"\n              - \"OPTIONS\"\n            allowedHeaders: \"*\"    # 允许在请求中携带的请求头, \'*\' 表示所有\n            allowCredentials: true # 是否允许携带 cookie\n            maxAge: 360000         # 跨域检测的有效期', '8ff21054a541b20a00aaeff248df9a81', '2023-08-01 23:35:51', '2023-08-01 15:35:51', 'nacos', '0:0:0:0:0:0:0:1', 'U', '0298b122-a60d-47f5-9be3-9ea149f17185', '');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for permissions
 -- ----------------------------
 DROP TABLE IF EXISTS `permissions`;
-CREATE TABLE `permissions`  (
-  `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `resource` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `action` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  UNIQUE INDEX `uk_role_permission`(`role`, `resource`, `action`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+CREATE TABLE `permissions` (
+  `role` varchar(50) NOT NULL,
+  `resource` varchar(255) NOT NULL,
+  `action` varchar(8) NOT NULL,
+  UNIQUE KEY `uk_role_permission` (`role`,`resource`,`action`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of permissions
 -- ----------------------------
+BEGIN;
 INSERT INTO `permissions` VALUES ('ROLE_PROD', '8c346cfe-9333-448d-b72d-c957d9cc1a80:*:*', 'rw');
 INSERT INTO `permissions` VALUES ('ROLE_TEST', '0298b122-a60d-47f5-9be3-9ea149f17185:*:*', 'rw');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for roles
 -- ----------------------------
 DROP TABLE IF EXISTS `roles`;
-CREATE TABLE `roles`  (
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `role` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  UNIQUE INDEX `idx_user_role`(`username`, `role`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+CREATE TABLE `roles` (
+  `username` varchar(50) NOT NULL,
+  `role` varchar(50) NOT NULL,
+  UNIQUE KEY `idx_user_role` (`username`,`role`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of roles
 -- ----------------------------
+BEGIN;
 INSERT INTO `roles` VALUES ('nacos', 'ROLE_ADMIN');
 INSERT INTO `roles` VALUES ('prod', 'ROLE_PROD');
 INSERT INTO `roles` VALUES ('test', 'ROLE_TEST');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for tenant_capacity
 -- ----------------------------
 DROP TABLE IF EXISTS `tenant_capacity`;
-CREATE TABLE `tenant_capacity`  (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Tenant ID',
-  `quota` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '配额，0表示使用默认值',
-  `usage` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '使用量',
-  `max_size` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
-  `max_aggr_count` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '聚合子配置最大个数',
-  `max_aggr_size` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
-  `max_history_count` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '最大变更历史数量',
-  `gmt_create` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `gmt_modified` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '修改时间',
+CREATE TABLE `tenant_capacity` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `tenant_id` varchar(128) COLLATE utf8_bin NOT NULL DEFAULT '' COMMENT 'Tenant ID',
+  `quota` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '配额，0表示使用默认值',
+  `usage` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '使用量',
+  `max_size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
+  `max_aggr_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '聚合子配置最大个数',
+  `max_aggr_size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
+  `max_history_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最大变更历史数量',
+  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_tenant_id`(`tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '租户容量信息表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of tenant_capacity
--- ----------------------------
+  UNIQUE KEY `uk_tenant_id` (`tenant_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='租户容量信息表';
 
 -- ----------------------------
 -- Table structure for tenant_info
 -- ----------------------------
 DROP TABLE IF EXISTS `tenant_info`;
-CREATE TABLE `tenant_info`  (
+CREATE TABLE `tenant_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `kp` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'kp',
-  `tenant_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT 'tenant_id',
-  `tenant_name` varchar(128) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '' COMMENT 'tenant_name',
-  `tenant_desc` varchar(256) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'tenant_desc',
-  `create_source` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'create_source',
+  `kp` varchar(128) COLLATE utf8_bin NOT NULL COMMENT 'kp',
+  `tenant_id` varchar(128) COLLATE utf8_bin DEFAULT '' COMMENT 'tenant_id',
+  `tenant_name` varchar(128) COLLATE utf8_bin DEFAULT '' COMMENT 'tenant_name',
+  `tenant_desc` varchar(256) COLLATE utf8_bin DEFAULT NULL COMMENT 'tenant_desc',
+  `create_source` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT 'create_source',
   `gmt_create` bigint(20) NOT NULL COMMENT '创建时间',
   `gmt_modified` bigint(20) NOT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `uk_tenant_info_kptenantid`(`kp`, `tenant_id`) USING BTREE,
-  INDEX `idx_tenant_id`(`tenant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = 'tenant_info' ROW_FORMAT = Dynamic;
+  UNIQUE KEY `uk_tenant_info_kptenantid` (`kp`,`tenant_id`) USING BTREE,
+  KEY `idx_tenant_id` (`tenant_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='tenant_info';
 
 -- ----------------------------
 -- Records of tenant_info
 -- ----------------------------
+BEGIN;
 INSERT INTO `tenant_info` VALUES (1, '1', '0298b122-a60d-47f5-9be3-9ea149f17185', 'test', '测试环境', 'nacos', 1687867984413, 1687867984413);
 INSERT INTO `tenant_info` VALUES (2, '1', '8c346cfe-9333-448d-b72d-c957d9cc1a80', 'prod', '线上环境', 'nacos', 1688354031984, 1688354031984);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users`  (
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+CREATE TABLE `users` (
+  `username` varchar(50) NOT NULL,
+  `password` varchar(500) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
   PRIMARY KEY (`username`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+BEGIN;
 INSERT INTO `users` VALUES ('nacos', '$2a$10$e6yrFvt1CBARjo8sCP26bOhU29WGHZ1Fo9IksnDlNSyTkjyWbq12u', 1);
 INSERT INTO `users` VALUES ('prod', '$2a$10$6xTvaoX7HQ5x4ZOENJjtTeiwt3uqpkoRMJq4Ryi/J8Yz/ywx8o.LO', 1);
 INSERT INTO `users` VALUES ('test', '$2a$10$brMbWrvcn9RPhtLZXvclnOjWgQrhWzoe4xT7HVXgeslCCLN/T4Mlu', 1);
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
