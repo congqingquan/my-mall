@@ -39,7 +39,7 @@ spring:
         heartbeat-interval-ms: 3000
       # 禁止收敛URL的入口 context
       web-context-unify: false
-      # 饿加载
+      # 饿加载: 服务启动后立即注册 Sentinel server 中，而非必须请求一次后才进行首次注册
       eager: true
 
 

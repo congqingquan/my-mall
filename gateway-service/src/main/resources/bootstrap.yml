@@ -24,3 +24,20 @@ spring:
         name: gateway-service
         file-extension: yaml
         refresh-enabled: true
+
+    # 服务监控
+    sentinel:
+      transport:
+        # 控制台的地址(ip:port)
+        dashboard: 127.0.0.1:8400
+        # 与控制台通讯的端口，默认是8719，不可用会一直+1
+        # 用于客户端暴露 sentinel 原生 api 的访问端口，用于管控台获取客户端簇点链路、监控数据、更新规则等
+        port: 5001
+        # 和控制台保持心跳的ip地址
+        client-ip: 127.0.0.1
+        # 发送心跳的周期，默认是10s
+        heartbeat-interval-ms: 3000
+      # 禁止收敛URL的入口 context
+      web-context-unify: false
+      # 饿加载: 服务启动后立即注册 Sentinel server 中，而非必须请求一次后才进行首次注册
+      eager: true

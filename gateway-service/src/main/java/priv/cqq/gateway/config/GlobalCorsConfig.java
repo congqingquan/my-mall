@@ -1,15 +1,15 @@
 package priv.cqq.gateway.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-@Configuration
+//@Configuration
 public class GlobalCorsConfig {
 
     private final List<String> allowOrigins = Arrays.asList("http://localhost:8001", "http://localhost:8002", "http://localhost:8003");
@@ -21,7 +21,8 @@ public class GlobalCorsConfig {
     @Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration config = new CorsConfiguration();
-        allowOrigins.forEach(config::addAllowedOrigin);
+        // allowOrigins.forEach(config::addAllowedOrigin);
+        config.setAllowedOrigins(Collections.singletonList("*"));
         allowMethods.forEach(config::addAllowedMethod);
         allowHeaders.forEach(config::addAllowedHeader);
         config.setAllowCredentials(true);
