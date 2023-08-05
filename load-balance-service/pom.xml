@@ -13,7 +13,7 @@
     </parent>
 
     <dependencies>
-        <!-- spring cloud -->
+        <!-- nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -22,6 +22,8 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+
+        <!-- loadbalancer -->
         <!-- 实际上 nacos-discovery 已经引入 ribbon 了 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

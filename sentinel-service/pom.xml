@@ -14,7 +14,7 @@
     </parent>
 
     <dependencies>
-        <!-- spring cloud -->
+        <!-- nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -23,18 +23,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+
+        <!-- sentinel -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-cluster-client-default</artifactId>
-        </dependency>
-        <!-- <dependency> -->
-        <!--     <groupId>com.alibaba.csp</groupId> -->
-        <!--     <artifactId>sentinel-datasource-nacos</artifactId> -->
-        <!-- </dependency> -->
 
         <!-- sentinel (spring-cloud-starter-alibaba-sentinel 中已经包括了这些依赖) -->
         <!-- <dependency> -->
@@ -47,7 +41,17 @@
         <!--     <artifactId>sentinel-annotation-aspectj</artifactId> -->
         <!--     <version>1.8.6</version> -->
         <!-- </dependency> -->
+        <!-- <dependency> -->
+        <!--     <groupId>com.alibaba.csp</groupId> -->
+        <!--     <artifactId>sentinel-cluster-client-default</artifactId> -->
+        <!-- </dependency> -->
 
+        <!-- <dependency> -->
+        <!--     <groupId>com.alibaba.csp</groupId> -->
+        <!--     <artifactId>sentinel-datasource-nacos</artifactId> -->
+        <!-- </dependency> -->
+
+        <!-- openfeign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
@@ -73,6 +77,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- other -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

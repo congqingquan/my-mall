@@ -13,7 +13,7 @@
     </parent>
 
     <dependencies>
-        <!-- spring cloud -->
+        <!-- nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
