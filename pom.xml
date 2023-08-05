@@ -16,6 +16,7 @@
         <module>openfeign-service</module>
         <module>sentinel-service</module>
         <module>sentinel-token-server</module>
+        <module>seata-service</module>
     </modules>
 
     <properties>
