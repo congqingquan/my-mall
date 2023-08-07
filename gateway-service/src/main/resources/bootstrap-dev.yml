@@ -19,7 +19,7 @@ spring:
 
       # 服务配置
       config:
-        namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
+        namespace: c8cc59da-dea3-44ef-9ff7-055879477406
         group: DEFAULT_GROUP
         name: gateway-service
         file-extension: yaml
