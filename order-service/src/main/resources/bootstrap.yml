@@ -24,3 +24,33 @@ spring:
         name: order-service
         file-extension: yaml
         refresh-enabled: true
+
+# feign 配置
+feign:
+  hystrix:
+    enabled: true
+
+# seata 配置
+seata:
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8100
+      namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
+      group: DEFAULT_GROUP
+      application: nacos-seata-tc-server
+      username: nacos
+      password: nacos
+  tx-service-group: seata-tx-test-group # 事务组名称
+  service:
+    vgroup-mapping: # 事务组与 TC cluster 的映射关系. 获取 TC 服务节点实例时的 TC 集群名称
+      seata-tx-test-group: SH
+#  data-source-proxy-mode: AT
+#  config:
+#    type: nacos
+#    nacos:
+#      server-addr: 127.0.0.1:8848
+#      username: nacos
+#      password: nacos
+#      group: SEATA_GROUP
+#      data-id: client.properties

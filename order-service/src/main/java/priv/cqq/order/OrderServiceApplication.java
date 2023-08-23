@@ -1,19 +1,26 @@
 package priv.cqq.order;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClients;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import priv.cqq.order.config.DefaultServiceLoadBalancerConfig;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@SpringBootApplication
+@LoadBalancerClients(defaultConfiguration = DefaultServiceLoadBalancerConfig.class)
+@EnableFeignClients
 @EnableDiscoveryClient
+@MapperScan("priv.cqq.order")
+@SpringBootApplication
 public class OrderServiceApplication {
     
     public static void main(String[] args) {
