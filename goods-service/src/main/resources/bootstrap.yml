@@ -45,7 +45,7 @@ seata:
   service:
     vgroup-mapping: # 事务组与 TC cluster 的映射关系. 获取 TC 服务节点实例时的 TC 集群名称
       seata-tx-test-group: SH
-#  data-source-proxy-mode: AT
+  data-source-proxy-mode: AT
 #  config:
 #    type: nacos
 #    nacos:
