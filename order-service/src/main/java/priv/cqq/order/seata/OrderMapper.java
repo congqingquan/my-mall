@@ -1,4 +1,4 @@
-package priv.cqq.order.controller;
+package priv.cqq.order.seata;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 

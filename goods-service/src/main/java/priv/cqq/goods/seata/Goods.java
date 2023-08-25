@@ -1,4 +1,4 @@
-package priv.cqq.goods.contoller;
+package priv.cqq.goods.seata;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

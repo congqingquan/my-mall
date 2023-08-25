@@ -1,6 +1,5 @@
 package priv.cqq.goods;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +14,7 @@ import priv.cqq.goods.config.DefaultServiceLoadBalancerConfig;
 @LoadBalancerClients(defaultConfiguration = DefaultServiceLoadBalancerConfig.class)
 @EnableFeignClients
 @EnableDiscoveryClient
-@MapperScan("priv.cqq.goods")
+// @MapperScan("priv.cqq.goods")
 @SpringBootApplication
 public class GoodsServiceApplication {
 
