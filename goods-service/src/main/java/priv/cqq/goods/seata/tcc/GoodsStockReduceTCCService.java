@@ -14,7 +14,7 @@ public interface GoodsStockReduceTCCService {
 
     // Confirm
     Boolean reduceGoodsStockCommit(BusinessActionContext context);
-
-    // Rollback
+    
+    // Cancel(Rollback)
     Boolean reduceGoodsStockRollback(BusinessActionContext context);
 }

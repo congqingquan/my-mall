@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import priv.cqq.goods.seata.tcc.GoodsStockReduceTCCService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class GoodsFeignController {
 
+    @Autowired
+    private HttpServletRequest request;
+    
     @Autowired
     private GoodsMapper goodsMapper;
 

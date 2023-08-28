@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
 
-    @Update("update goods set stock = stock - ${num} where id = #{goodsId}")
+    @Update("update goods set stock = stock - ${num} where id = #{goodsId} and stock >= ${num}")
     int reduce(@Param("goodsId") Long goodsId, @Param("num") int num);
 
     @Update("update goods set stock = stock + ${num} where id = #{goodsId}")
