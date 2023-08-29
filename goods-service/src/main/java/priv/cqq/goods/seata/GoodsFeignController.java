@@ -2,7 +2,6 @@ package priv.cqq.goods.seata;
 
 
 import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalLock;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ public class GoodsFeignController {
 
     @PostMapping("/seata/reduceStock")
     @GlobalTransactional
-    @GlobalLock
     public R<Boolean> reduceStock(@RequestParam Long goodsId, @RequestParam Integer num) {
         String xid1 = RootContext.getXID();
         String xid2 = HttpContext.getRequest().getHeader("TX_XID");

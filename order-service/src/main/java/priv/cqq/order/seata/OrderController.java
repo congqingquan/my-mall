@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import priv.cqq.entity.R;
+import priv.cqq.exception.BusinessException;
 import priv.cqq.order.seata.client.GoodsFeignClient;
 
 import java.time.LocalDateTime;
@@ -35,5 +36,15 @@ public class OrderController {
         orderMapper.insert(order);
         goodsFeignClient.TCCReduceStock(order.getGoodsId(), order.getTotal());
         return ResponseEntity.status(HttpStatus.CREATED).body(order.getId());
+    }
+    
+    @PostMapping("/seata/dirtyWriting")
+    @GlobalTransactional
+    public R<?> dirtyWriting(Order order, Boolean rollback) {
+        orderMapper.updateById(order);
+        if (Boolean.TRUE.equals(rollback)) {
+            throw new BusinessException("Rollback by request param");
+        }
+        return R.success();
     }
 }
