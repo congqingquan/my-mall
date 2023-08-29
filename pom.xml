@@ -8,6 +8,7 @@
     <name>my-mall</name>
 
     <modules>
+        <module>common</module>
         <module>gateway-service</module>
         <module>goods-service</module>
         <module>order-service</module>
@@ -33,6 +34,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- mall-common -->
+            <dependency>
+                <groupId>priv.cqq</groupId>
+                <artifactId>common</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
             <!-- spring -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>

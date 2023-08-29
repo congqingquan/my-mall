@@ -71,6 +71,12 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
 
+        <!-- common -->
+        <dependency>
+            <groupId>priv.cqq</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

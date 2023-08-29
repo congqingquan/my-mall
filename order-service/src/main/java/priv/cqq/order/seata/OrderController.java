@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import priv.cqq.entity.R;
 import priv.cqq.order.seata.client.GoodsFeignClient;
 
 import java.time.LocalDateTime;
@@ -19,17 +20,16 @@ public class OrderController {
     @Autowired
     private OrderMapper orderMapper;
 
-    @PostMapping("/order")
+    @PostMapping("/seata/order")
     @GlobalTransactional
-    public ResponseEntity<Long> create(Order order) {
+    public R<Boolean> create(Order order) {
         order.setCreateTime(LocalDateTime.now());
         orderMapper.insert(order);
-        goodsFeignClient.reduceStock(order.getGoodsId(), order.getTotal());
-        return ResponseEntity.status(HttpStatus.CREATED).body(order.getId());
+        return goodsFeignClient.reduceStock(order.getGoodsId(), order.getTotal());
     }
 
-    @PostMapping("/TCCOrder")
-    @GlobalTransactional
+    @PostMapping("/seata/TCCOrder")
+//    @GlobalTransactional
     public ResponseEntity<Long> TCCCreate(Order order) {
         order.setCreateTime(LocalDateTime.now());
         orderMapper.insert(order);

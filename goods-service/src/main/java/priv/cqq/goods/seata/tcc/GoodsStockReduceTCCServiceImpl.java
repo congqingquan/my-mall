@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import priv.cqq.exception.BusinessException;
 import priv.cqq.goods.seata.GoodsMapper;
 
 import java.util.Objects;
@@ -39,7 +40,7 @@ public class GoodsStockReduceTCCServiceImpl implements GoodsStockReduceTCCServic
         // 2. 减少实际库存
         int reduceRes = goodsMapper.reduce(goodsId, num);
         if (reduceRes <= 0) {
-            throw new RuntimeException("库存不足");
+            throw new BusinessException("库存不足");
         }
     }
 
@@ -82,6 +83,7 @@ public class GoodsStockReduceTCCServiceImpl implements GoodsStockReduceTCCServic
         // 2. 修改库存冻结流水: 冻结库存为0 & 状态为已回滚
         GoodsStockFreeze goodsStockFreeze = new GoodsStockFreeze();
         goodsStockFreeze.setXid(xid);
+        goodsStockFreeze.setFreezeStock(0);
         goodsStockFreeze.setState(GoodsStockFreeze.State.CANCEL);
         return goodsStockFreezeMapper.updateById(goodsStockFreeze) == 1;
     }

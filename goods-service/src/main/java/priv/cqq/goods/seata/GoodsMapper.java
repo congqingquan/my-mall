@@ -3,6 +3,7 @@ package priv.cqq.goods.seata;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 @Mapper
@@ -13,4 +14,7 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     @Update("update goods set stock = stock + ${num} where id = #{goodsId}")
     int plus(@Param("goodsId") Long goodsId, @Param("num") int num);
+
+    @Select("select * from goods where id = #{goodsId} FOR UPDATE")
+    Goods selectByIdForUpdate(@Param("goodsId") Long goodsId);
 }
