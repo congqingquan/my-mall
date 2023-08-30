@@ -36,21 +36,22 @@ seata:
     type: nacos
     nacos:
       server-addr: 127.0.0.1:8100
-      namespace: 0298b122-a60d-47f5-9be3-9ea149f17185
+      namespace: 510d8d6d-5898-4b70-b28a-2893c8145b11
       group: DEFAULT_GROUP
       application: nacos-seata-tc-server
       username: nacos
       password: nacos
-  tx-service-group: seata-tx-test-group # 事务组名称
-  service:
-    vgroup-mapping: # 事务组与 TC cluster 的映射关系. 获取 TC 服务节点实例时的 TC 集群名称
-      seata-tx-test-group: SH
+  # 1. 指定使用的 seata nacos 配置
+  config:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8100
+      namespace: 510d8d6d-5898-4b70-b28a-2893c8145b11
+      group: DEFAULT_GROUP
+      username: nacos
+      password: nacos
+  # 2. 配置服务所在的事务组，在结合 seata nacos 配置中的事务组映射，
+  #    即可拿到使用的 nacos seata server 所属的 cluster
+  #    这样当我们动态修改 seata nacos 配置中的事务组映射，即可变更服务节点使用的 seata server
+  tx-service-group: seata-tx-test-group
   data-source-proxy-mode: AT
-#  config:
-#    type: nacos
-#    nacos:
-#      server-addr: 127.0.0.1:8848
-#      username: nacos
-#      password: nacos
-#      group: SEATA_GROUP
-#      data-id: client.properties
