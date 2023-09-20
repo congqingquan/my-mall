@@ -18,6 +18,7 @@
         <module>sentinel-service</module>
         <module>sentinel-token-server</module>
         <module>seata-service</module>
+        <module>skywalking</module>
     </modules>
 
     <properties>
