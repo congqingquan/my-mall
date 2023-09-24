@@ -1,0 +1,30 @@
+// micro service
+gateway-service: 5000/5001(sentinel-grpc)
+
+goods-service: 6100
+order-service: 6200
+nacos-service: 6300
+load-balance-service: 6400
+openfeign-service: 6500
+sentinel-service: 6600/6601(sentinel-grpc)
+skywalking
+skywalking-order-service: 6700
+skywalking-goods-service: 6800
+
+// middleware
+nacos-cluster
+node1: 8100/9100/9101/7200
+node2: 8200/9200/9201/7300
+node3: 8300/9300/9301/7300
+
+sentinel
+sentinel-dashboard: 8400/8401
+sentinel-token-server: 8500(server)/8501(rpc)
+
+seata-cluster
+node1: 8600/9600
+node2: 8700/9700
+
+skywalking
+oap-server: 8800(for collect data)/8801(for web-ui request)
+Web-ui: 8900
